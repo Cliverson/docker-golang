@@ -7,12 +7,11 @@ COPY app.go ./
 COPY . .
 
 RUN go mod init fullcycle \
-  && go build
+  && go build -ldflags "-s -w"
 
 ##
 
-FROM alpine:3.14
-RUN apk add --no-cache --no-network --purge
+FROM busybox:musl
 COPY --from=build /usr/src/app/fullcycle /go/bin/
 WORKDIR /go/bin
 CMD ["./fullcycle"]
