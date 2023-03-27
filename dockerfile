@@ -11,7 +11,6 @@ RUN go mod init fullcycle \
 
 ##
 
-FROM busybox:musl
-COPY --from=build /usr/src/app/fullcycle /go/bin/
-WORKDIR /go/bin
+FROM scratch
+COPY --from=build /usr/src/app/fullcycle /
 CMD ["./fullcycle"]
